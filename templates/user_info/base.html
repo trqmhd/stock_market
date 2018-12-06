@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{%url 'trade:home' as trade_url%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class='navbar navbar-default navbar-static-top'>
+    <div class="container">
+
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="navbar-brand" href="{%url 'index'%}"> Homepage </a>
+            </li>
+
+            <li>
+                <a class="navbar-link" href="{% url 'admin:index' %}"> Admin </a>
+            </li>
+
+            <li>
+                <a class="navbar-link" href="{% url 'user_info:register'%}"> Registration </a>
+            </li>
+
+
+            {% if user.is_authenticated %}
+
+
+            <li>
+                <a class="navbar-link" href="{% url 'logout' %}"> Logout </a>
+            </li>
+
+
+            <li>
+                <a class="navbar-brand" href="{% url 'StockListView' %}"><h6>Stock List </h6></a>
+
+            </li>
+
+
+
+            <li>
+                <a class="navbar-link" href="{{trade_url}}"> Trade {{request.session.trade_items}}<i class="fas fa-shopping-cart"></i>
+                </a>
+            </li>
+
+
+            {% else %}
+            <li>
+                <a class="navbar-link" href="{% url 'user_info:user_login' %}"> Login </a>
+            </li>
+            {% endif %}
+
+
+        </ul>
+    </div>
+
+
+</nav>
+
+<div class="container">
+
+
+    {% block body_block %}
+    {% endblock %}
+</div>
+
+
+</body>
+</html>

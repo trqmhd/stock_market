@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% include 'stock_info/stock_base.html'%}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+
+
+<body>
+
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue lighten-2 mb-4">
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <form method='GET' action="{% url 'search' %}" class="form-inline mr-auto">
+                <input class="form-control" type="text" placeholder="Search" name='q' aria-label="Search"
+                       value='{{request.GET.q}}'>
+                <button class="btn btn-mdb-color btn-rounded btn-sm my-1 ml-sm-2 btn btn-outline-dark" type="submit">
+                    Search
+                </button>
+
+
+            </form>
+
+        </div>
+        <!-- Collapsible content -->
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Navbar</a>
+
+    </nav>
+    <!--/.Navbar-->
+
+</div>
+
+
+<div class="container">
+
+    <div class="jumbotron">
+
+        <h3> Stock Name: </h3>
+        {% for object in object_list%}
+
+        {% include 'stock_info/snippets.html' %}
+
+        {{ forloop.counter}} . <a href="{{ object.get_absolute_url }}">
+        {{object.symbol }}<br> </a>     <!--  {{object.symbol | linebreaks }}linebreaks breaking the text line-->
+        <!--   {% cycle '<h5> Stock Analysis </h5>' ''%} <!-- '' - iteration -->
+
+        {%endfor%}
+    </div>
+</div>
+
+</body>
+
+
+</html>

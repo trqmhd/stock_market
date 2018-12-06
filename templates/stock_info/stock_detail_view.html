@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Detail View</title>
+</head>
+
+<body>
+
+<div>
+
+    <div class='row'>
+        <div class='col-12 col-md-6'>
+            <div class="alert alert-primary" role="alert">
+
+
+                <h3>Stock Name: {{object.symbol}}</h3>
+                <p>Date: {{object.date}}</p>
+                <p>High: {{object.high}}</p>
+                <p>Low: {{object.low}}</p>
+                <p>Open: {{object.open}}</p>
+                <p>Close: {{object.close}}</p>
+                <p> Volume: {{object.volume}}</p>
+                <p> Adjust Close: {{object.adj_close}}</p>
+
+            </div>
+            <!--
+                        <div>
+
+                            {% if object in trade.stock_info.all%}
+                            In Trade
+                            <button class="btn btn-link"> Remove</button>
+                            {% else %}
+                            <button class="btn btn-success"> Add for Trade</button>
+                            {%endif%}
+
+                        </div>
+
+
+            -->
+            <div class="col-12 col-md-6">
+
+                {% include 'stock_info/update_trade.html' with stock_info=object trade=trade %}
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+
+</html>

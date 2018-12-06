@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+    <title>Stock Trading</title>
+</head>
+<body>
+
+<nav class='navbar navbar-default navbar-static-top'>
+    <div class="container">
+
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="navbar-brand" href="{%url 'index'%}"> Home </a>
+                <h5> Trade Your Stocks Here: </h5>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+{% if trade.stock_info.exists %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Stock Name</th>
+      <th scope="col">Stock Price</th>
+      <!--<th scope="col">Estimated Cost</th>-->
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for stock_info in trade.stock_info.all %}
+    <a>
+      <th scope="row">{{forloop.counter}}</th>
+        <td><a href="{{stock_info.get_absolute_url}}"> {{stock_info.symbol}}</a>
+            {% include 'stock_info/update_trade.html' with stock_info=stock_info trade=trade in_trade=True %}
+            <!--<a href="#">Remove</a> </td>-->
+      <td>{{stock_info.open}}</td>
+      <!--<td>@mdo</td>-->
+    </tr>
+  {% endfor %}
+    <tr>
+
+      <td colspan="2"></td>
+
+      <td><b>Share Amount </b>{{trade.share_amount}}</td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+
+      <td><b>Estiamted Price </b>{{trade.estimated_cost}}</td>
+    </tr>
+
+        <tr>
+      <td colspan="2"></td>
+
+      <td><a class="btn btn-success" href='{% url "trade:checkout"%}'> Review Order</a> </td>
+    </tr>
+
+
+  </tbody>
+
+</table>
+{%else%}
+<p class="lead"> No stock-trade are avialable </p>
+
+{%endif%}
+
+</body>
+</html>
+
+
+

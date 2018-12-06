@@ -1,0 +1,21 @@
+
+
+
+
+<form method='POST' action="{% url 'trade:update' %}" class="form"> {%csrf_token%}
+    <input type="hidden" name="stock_info_id"  value="{{ stock_info.id }}">
+
+
+
+    {% if in_trade %}
+        <button type ='submit' class="btn btn-link btn-sm" style="padding:0px;cursor:pointer;"> Remove </button>
+    {% else %}
+        {% if stock_info in trade.stock_info.all%}
+                In Trade <button type='submit' class="btn btn-link"> Remove </button>
+        {% else %}
+                <button type ='submit' class="btn btn-success"> Add for Trade </button>
+        {% endif%}
+    {%endif%}
+
+
+</form>
