@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Trade
 from stock_info.models import StockInfo
 from orders.models import Order
+from billing.models import BillingPortfolio
 
 
 
@@ -70,7 +71,50 @@ def checkout_home(request):
     order_obj = None
     if trade_created or trade_obj.stock_info.count() == 0:
         return redirect("trade:home")
-    else:
-        order_obj, new_order_obj = Order.objects.get_or_create(trade = trade_obj)
-    return render(request, "stock_trade/checkout.html", {"object": order_obj})
+
+
+    # user = request.user
+    # billing_portfolio = None
+    billing_portfolio, billing_portfolio_created = BillingPortfolio.objects.new_or_get(request)
+
+
+    # if user.is_authenticated:
+    #     billing_portfolio, billing_portfolio_created = BillingPortfolio.objects.get_or_create(user=user,
+    #                                                                                    email=user.email)
+    # else:
+    #     pass
+
+    if billing_portfolio is not None:
+        order_obj, order_obj_created = Order.objects.new_or_get(billing_portfolio, trade_obj)
+        # order_obj.save()
+
+        # order_qs = Order.objects.filter(trade = trade_obj)
+        # if order_qs.exists():
+        #     order_qs.update(active= False)
+        # else:
+        #     order_obj= Order.objects.create(billing_portfolio = billing_portfolio, trade=trade_obj)
+
+
+    if request.method == "POST":
+        is_done = order_obj.check_done()
+        if is_done:
+            order_obj.mark_paid()
+            request.session['trade_items'] = 0
+            del request.session['trade_id']
+        #del request.session['trade_id']
+            return redirect("trade:success")
+
+    # del request.session['trade_id']
+    # update order_obj to done, "paid"
+    # redirect to success page
+
+    context = {
+        "object": order_obj,
+        "billing_portfolio": billing_portfolio
+    }
+    return render(request, "stock_trade/checkout.html", context)
+
+
+def checkout_done_view(request):
+    return render(request,"stock_trade/checkout-done.html", {} )
 

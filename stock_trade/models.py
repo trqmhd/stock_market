@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.conf import settings
 from stock_info.models import StockInfo
@@ -76,7 +77,7 @@ m2m_changed.connect(m2m_changed_trade_receiver, sender= Trade.stock_info.through
 
 def pre_save_trade_receiver(sender, instance, *args, **kwargs):
     if instance.share_amount > 0:
-        instance.estimated_cost = (instance.estimated_cost) * (instance.share_amount)
+        instance.estimated_cost = Decimal(instance.estimated_cost) * Decimal(instance.share_amount)
     else:
         instance.estimated_cost = 0.00
 

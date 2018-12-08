@@ -1,18 +1,11 @@
 
 
 {% block content %}
+<div class="col-6 mx-auto py-5 text-center">
 
-{{object.order_id}} -- {{object.trade}}
+    <h1 class="display-1"> Thank you for your order.</h1>
 
-<h1> Finalize Order: </h1>
-
-
-<p> Stock items: {% for stock_name in object.trade.stock_info.all %} {{stock_name}}{%if not forloop.last%},{%endif%}{%endfor%}</p>
-<p> Total Trade : {{ object.trade.estimated_cost}}</p>
-<p> Order Total: {{ object.estimated_cost }}</p>
-<form class="form" method="POST" action="">{% csrf_token%}
-    <button type="submit" class='btn btn-success'> Order </button>
-</form>
+</div>
 {% endblock %}
 
 

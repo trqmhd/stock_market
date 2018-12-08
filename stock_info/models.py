@@ -17,14 +17,6 @@ class StockManager(models.Manager):
         return None
 
 # Create your models here.
-
-
-
-
-
-
-
-
 class StockInfo(models.Model):
     symbol = models.CharField(max_length=10)
     date = models.DateField()
