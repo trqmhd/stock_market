@@ -11,7 +11,7 @@ User = settings.AUTH_USER_MODEL
 
 class TradeManager(models.Manager):
 
-    def new_or_get (self, request):
+    def new_or_get(self, request):
         trade_id = request.session.get('trade_id', None)
 
         qs = self.get_queryset().filter(id=trade_id)
@@ -34,8 +34,6 @@ class TradeManager(models.Manager):
             if user.is_authenticated:
                 user_obj = user
         return self.model.objects.create(user=user_obj)
-
-
 
 # Create your models here.
 class Trade(models.Model):

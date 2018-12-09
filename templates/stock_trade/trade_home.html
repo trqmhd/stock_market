@@ -49,16 +49,34 @@
       <!--<td>@mdo</td>-->
     </tr>
   {% endfor %}
+
+
+
+
+
+
+
     <tr>
 
       <td colspan="2"></td>
 
-      <td><b>Share Amount </b>{{trade.share_amount}}</td>
+      <td>
+        <button onclick="buttonClick()">Share Amount</button>
+<input type="text" id="inc" value="0"></input>
+
+
+<script>
+    var i = {{trade.share_amount}};
+    function buttonClick() {
+        document.getElementById('inc').value = i++;
+    }
+</script>
+      </td>
     </tr>
     <tr>
       <td colspan="2"></td>
 
-      <td><b>Estiamted Price </b>{{trade.estimated_cost}}</td>
+      <td><b>Estiamted Price </b>{{trade.estimated_cost}} </td>
     </tr>
 
         <tr>
@@ -78,6 +96,22 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
