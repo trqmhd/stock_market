@@ -8,7 +8,6 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
-
     <title>Stock Trading</title>
 </head>
 <body>
@@ -29,64 +28,83 @@
 {% if trade.stock_info.exists %}
 
 <table class="table">
-  <thead>
+    <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Stock Name</th>
-      <th scope="col">Stock Price</th>
-      <!--<th scope="col">Estimated Cost</th>-->
+        <th scope="col">#</th>
+        <th scope="col">Stock Name</th>
+        <th scope="col">Stock Price</th>
+        <!--<th scope="col">Estimated Cost</th>-->
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
-  {% for stock_info in trade.stock_info.all %}
-    <a>
-      <th scope="row">{{forloop.counter}}</th>
-        <td><a href="{{stock_info.get_absolute_url}}"> {{stock_info.symbol}}</a>
-            {% include 'stock_info/update_trade.html' with stock_info=stock_info trade=trade in_trade=True %}
-            <!--<a href="#">Remove</a> </td>-->
-      <td>{{stock_info.open}}</td>
-      <!--<td>@mdo</td>-->
+    <tbody>
+    {% for stock_info in trade.stock_info.all %}
+
+    <th scope="row">{{forloop.counter}}</th>
+    <td><a href="{{stock_info.get_absolute_url}}"> {{stock_info.symbol}}</a>
+        {% include 'stock_info/update_trade.html' with stock_info=stock_info trade=trade in_trade=True %}
+        <!--<a href="#">Remove</a> </td>-->
+    <td>{{stock_info.open}}</td>
+    <!--<td>@mdo</td>-->
     </tr>
-  {% endfor %}
+    {% endfor %}
 
 
+    <!--<tr>-->
+
+    <!--<td colspan="2"></td>-->
+
+    <!--<td>-->
+    <!--<button onclick="buttonClick()">Share Amount</button>-->
+    <!--<input type="text" id="inc" value="0"></input>-->
 
 
-
+    <!--<script>-->
+    <!--var i = {{trade.share_amount}};-->
+    <!--function buttonClick() {-->
+    <!--document.getElementById('inc').value = i++;-->
+    <!--}-->
+    <!--</script>-->
+    <!--</td>-->
+    <!--</tr>-->
 
 
     <tr>
 
-      <td colspan="2"></td>
+        <td colspan="2"></td>
 
-      <td>
-        <button onclick="buttonClick()">Share Amount</button>
-<input type="text" id="inc" value="0"></input>
+        <td>
 
 
-<script>
-    var i = {{trade.share_amount}};
-    function buttonClick() {
-        document.getElementById('inc').value = i++;
-    }
-</script>
-      </td>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ share_amount_form.as_p }}
+
+
+                <input type="text" id="inc" name="share_amount" value="0"> </input>
+               <p> Share Amount </p> <input type="submit" value="Update"> </input>
+
+            </form>
+
+
+        </td>
     </tr>
+
+
     <tr>
-      <td colspan="2"></td>
+        <td colspan="2"></td>
 
-      <td><b>Estiamted Price </b>{{trade.estimated_cost}} </td>
+        <td><b>Estiamted Price </b> {{trade.estimated_cost}}</td>
     </tr>
 
-        <tr>
-      <td colspan="2"></td>
+    <tr>
+        <td colspan="2"></td>
 
-      <td><a class="btn btn-success" href='{% url "trade:checkout"%}'> Review Order</a> </td>
+        <td><a class="btn btn-success" href='{% url "trade:checkout"%}'> Review Order</a></td>
     </tr>
 
 
-  </tbody>
+    </tbody>
 
 </table>
 {%else%}
