@@ -1,10 +1,6 @@
 name: Widget Dispatch
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: "Desired Branch Name - master"
-        required: true
 
 jobs:
   build:
@@ -12,4 +8,4 @@ jobs:
     steps:
       - name: Testing Fetch
         run: |
-          echo "Hello World"
+          echo "The Enviroment Value is -:${{prod.ENV}}"   
