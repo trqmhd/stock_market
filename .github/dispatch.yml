@@ -1,0 +1,15 @@
+name: Widget Dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Desired Branch Name - master"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing Fetch
+        run: |
+          echo "Hello World"
