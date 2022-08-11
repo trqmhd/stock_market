@@ -5,9 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: prod
     steps:
       - name: Testing Fetch
+        environment: prod
         run: |
           echo "The Enviroment Value is -:${{secrets.ENV}}"
           echo "The Enviroment Value is -:${{secrets.DOC}}"
