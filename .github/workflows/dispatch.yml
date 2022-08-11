@@ -1,13 +1,22 @@
 name: Widget Dispatch
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: "Desired Branch Name - master|stage|dev"
+        required: true
+
+      deploy_state:
+        description: "Deploy to - prod|stage|dev"
+        default: "dev"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: Testing Fetch
-        environment: prod
         run: |
           echo "The Enviroment Value is -:${{secrets.ENV}}"
           echo "The Enviroment Value is -:${{secrets.DOC}}"
+          echo "${{ github.event.inputs.deploy_state }}"
