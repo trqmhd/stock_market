@@ -9,4 +9,5 @@ jobs:
     steps:
       - name: Testing Fetch
         run: |
-          echo "The Enviroment Value is -:${{environment.ENV}}"
+          echo "The Enviroment Value is -:${{secrets.ENV}}"
+          echo "The Enviroment Value is -:${{secrets.DOC}}"
